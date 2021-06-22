@@ -1,12 +1,12 @@
 <div align="center">
 
-<h1 style="border: none;">hilbert_inception.nim</h1>
+<div style="font-size: 2em; padding: .7em 0 .3em;">hilbert_inception.nim</div>
 <img src="https://raw.githubusercontent.com/elliotwaite/hilbert/master/hilbert_inception.png" width="100%" />
 
-<h1 style="border: none;">hilbert_rainbow.nim</h1>
+<div style="font-size: 2em; padding: .7em 0 .3em;">hilbert_rainbow.nim</div>
 <img src="https://raw.githubusercontent.com/elliotwaite/hilbert/master/hilbert_rainbow.png" width="100%" />
 
-<h1 style="border: none;">hilbert_rainbow_tight.nim</h1>
+<div style="font-size: 2em; padding: .7em 0 .3em;">hilbert_rainbow_tight.nim</div>
 <img src="https://raw.githubusercontent.com/elliotwaite/hilbert/master/hilbert_rainbow_tight.png" width="100%" />
 
 </div>
