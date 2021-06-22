@@ -1,7 +1,7 @@
 import common, pixie
 
 const
-  pixelScale = 3.0
+  pixelScale = 8.0
   iteration = 8
   startPos = vec2(0, 0)
   fromCorner = vec2(-1, -1)
@@ -48,14 +48,16 @@ proc drawHilbert(
     ctx.drawHilbert(pos, -fromCorner, toCorner, iteration - 1, dist)
 
 proc main() =
-  let imageSize = hilbertSize(iteration)
-  let image = newImage((imageSize * pixelScale).int, (imageSize * pixelScale).int)
+  let imagSize = (hilbertSize(iteration) * pixelScale).int
+  let image = newImage(imagSize, imagSize)
 
   var dist: int
   let ctx = newContext(image)
   ctx.drawHilbert(startPos, fromCorner, toCorner, iteration, dist)
-  echo "Pixels drawn: " & $dist
 
   image.writeFile("hilbert_rainbow_tight.png")
+
+  echo "Image size: " & $imagSize & " x " & $imagSize
+  echo "Pixels drawn: " & $dist
 
 main()

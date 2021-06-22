@@ -1,7 +1,7 @@
 import common, pixie
 
 const
-  pixelScale = 4.0
+  pixelScale = 8.0
   outerIteration = 3
   innerIteration = 3
   fromCorner = vec2(-1, -1)
@@ -140,17 +140,19 @@ proc drawOuterHilbert(
     ctx.drawOuterHilbert(pos, -fromCorner, toCorner, outerIteration - 1, innerIteration, dist)
 
 proc main() =
-  let imagePadding = 2.0 + hilbertSize(0, innerIteration)
-  let startPos = vec2(imagePadding, imagePadding)
-  let imageSize = 2.0 * imagePadding + hilbertSize(outerIteration, innerIteration)
-  let image = newImage((imageSize * pixelScale).int, (imageSize * pixelScale).int)
+  let padding = 2.0 + hilbertSize(0, innerIteration)
+  let startPos = vec2(padding, padding)
+  let imageSize = ((2.0 * padding + hilbertSize(outerIteration, innerIteration)) * pixelScale).int
+  let image = newImage(imageSize, imageSize)
   image.fill(rgba(0, 0, 0, 255))
 
   var dist: int
   let ctx = newContext(image)
   ctx.drawOuterHilbert(startPos, fromCorner, toCorner, outerIteration, innerIteration, dist)
-  echo "Pixels drawn: " & $dist
 
   image.writeFile("hilbert_inception.png")
+
+  echo "Image size: " & $imageSize & " x " & $imageSize
+  echo "Pixels drawn: " & $dist
 
 main()
