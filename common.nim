@@ -1,8 +1,8 @@
 import pixie
 
-proc addPixel*(ctx: Context, pos: Vec2, color: ColorRGBA) =
+proc addPixel*(ctx: Context, pos: Vec2, color: ColorRGBA, pixelScale = 1.0) =
   ctx.fillStyle = color
-  ctx.fillRect(rect(vec2(pos.x, pos.y), vec2(1, 1)))
+  ctx.fillRect(rect(vec2(pos.x * pixelScale, pos.y * pixelScale), vec2(pixelScale, pixelScale)))
 
 proc allSaturatedColors*(): seq[ColorRGBA] =
   for g in 0'u8 .. 254'u8:

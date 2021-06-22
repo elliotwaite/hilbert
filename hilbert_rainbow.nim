@@ -1,6 +1,7 @@
 import common, pixie
 
 const
+  pixelScale = 2.0
   iteration = 8
   startPos = vec2(1, 1)
   fromCorner = vec2(-1, -1)
@@ -26,7 +27,7 @@ proc drawHilbert(
   dist: var int
 ) =
   if iteration == 0:
-    ctx.addPixel(pos, dist.toColor)
+    ctx.addPixel(pos, dist.toColor, pixelScale)
     dist += 1
   else:
     var pos = pos
@@ -38,21 +39,21 @@ proc drawHilbert(
     ctx.drawHilbert(pos, fromCorner, -toCorner, iteration - 1, dist)
     pos += dir1 * size
 
-    ctx.addPixel(pos, dist.toColor)
+    ctx.addPixel(pos, dist.toColor, pixelScale)
     dist += 1
     pos += dir1
 
     ctx.drawHilbert(pos, fromCorner, toCorner, iteration - 1, dist)
     pos += dir2 * size
 
-    ctx.addPixel(pos, dist.toColor)
+    ctx.addPixel(pos, dist.toColor, pixelScale)
     dist += 1
     pos += dir2
 
     ctx.drawHilbert(pos, fromCorner, toCorner, iteration - 1, dist)
     pos += dir2 * (size - 1) + dir3
 
-    ctx.addPixel(pos, dist.toColor)
+    ctx.addPixel(pos, dist.toColor, pixelScale)
     dist += 1
     pos += dir3
 
@@ -60,7 +61,7 @@ proc drawHilbert(
 
 proc main() =
   let imageSize = 2 + hilbertSize(iteration)
-  let image = newImage(imageSize.int, imageSize.int)
+  let image = newImage((imageSize * pixelScale).int, (imageSize * pixelScale).int)
   image.fill(rgba(0, 0, 0, 255))
 
   var dist: int

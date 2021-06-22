@@ -1,6 +1,7 @@
 import common, pixie
 
 const
+  pixelScale = 4.0
   outerIteration = 3
   innerIteration = 3
   fromCorner = vec2(-1, -1)
@@ -36,7 +37,7 @@ proc drawInnerHilbert(
   dist: var int
 ) =
   if iteration == 0:
-    ctx.addPixel(pos, dist.toColor)
+    ctx.addPixel(pos, dist.toColor, pixelScale)
     dist += 1
   else:
     var pos = pos
@@ -48,21 +49,21 @@ proc drawInnerHilbert(
     ctx.drawInnerHilbert(pos, fromCorner, -toCorner, iteration - 1, dist)
     pos += dir1 * size
 
-    ctx.addPixel(pos, dist.toColor)
+    ctx.addPixel(pos, dist.toColor, pixelScale)
     dist += 1
     pos += dir1
 
     ctx.drawInnerHilbert(pos, fromCorner, toCorner, iteration - 1, dist)
     pos += dir2 * size
 
-    ctx.addPixel(pos, dist.toColor)
+    ctx.addPixel(pos, dist.toColor, pixelScale)
     dist += 1
     pos += dir2
 
     ctx.drawInnerHilbert(pos, fromCorner, toCorner, iteration - 1, dist)
     pos += dir2 * (size - 1) + dir3
 
-    ctx.addPixel(pos, dist.toColor)
+    ctx.addPixel(pos, dist.toColor, pixelScale)
     dist += 1
     pos += dir3
 
@@ -92,14 +93,14 @@ proc drawOuterHilbert(
     pos += dir1 * outerSize
 
     # Connect 1 to 2
-    ctx.addPixel(pos, dist.toColor)
+    ctx.addPixel(pos, dist.toColor, pixelScale)
     dist += 1
     pos += dir1
 
     ctx.drawInnerHilbert(pos, fromCorner, -toCorner, innerIteration, dist)
     pos += dir1 * innerSize
 
-    ctx.addPixel(pos, dist.toColor)
+    ctx.addPixel(pos, dist.toColor, pixelScale)
     dist += 1
     pos += dir1
 
@@ -108,14 +109,14 @@ proc drawOuterHilbert(
     pos += dir2 * outerSize
 
     # Connect 2 to 3
-    ctx.addPixel(pos, dist.toColor)
+    ctx.addPixel(pos, dist.toColor, pixelScale)
     dist += 1
     pos += dir2
 
     ctx.drawInnerHilbert(pos, fromCorner, toCorner, innerIteration, dist)
     pos += dir2 * innerSize
 
-    ctx.addPixel(pos, dist.toColor)
+    ctx.addPixel(pos, dist.toColor, pixelScale)
     dist += 1
     pos += dir2
 
@@ -124,14 +125,14 @@ proc drawOuterHilbert(
     pos += dir2 * (outerSize - 1) + dir3
 
     # Connect 3 to 4
-    ctx.addPixel(pos, dist.toColor)
+    ctx.addPixel(pos, dist.toColor, pixelScale)
     dist += 1
     pos += dir3
 
     ctx.drawInnerHilbert(pos, -fromCorner, toCorner, innerIteration, dist)
     pos += dir3 * innerSize
 
-    ctx.addPixel(pos, dist.toColor)
+    ctx.addPixel(pos, dist.toColor, pixelScale)
     dist += 1
     pos += dir3
 
@@ -142,7 +143,7 @@ proc main() =
   let imagePadding = 2.0 + hilbertSize(0, innerIteration)
   let startPos = vec2(imagePadding, imagePadding)
   let imageSize = 2.0 * imagePadding + hilbertSize(outerIteration, innerIteration)
-  let image = newImage(imageSize.int, imageSize.int)
+  let image = newImage((imageSize * pixelScale).int, (imageSize * pixelScale).int)
   image.fill(rgba(0, 0, 0, 255))
 
   var dist: int
