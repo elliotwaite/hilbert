@@ -7,8 +7,8 @@ const
   fromCorner = vec2(-1, -1)
   toCorner = vec2(1, -1)
   colorSeq = allSaturatedColors()
-  pixelsPerColorCycle = 16255
-  colorSpeed = colorSeq.len.float / pixelsPerColorCycle.float
+  totalPixelsDrawn = 16255
+  colorSpeed = colorSeq.len.float / totalPixelsDrawn.float
 
 proc toColor(dist: int): ColorRGBA =
   colorSeq[(dist.float * colorSpeed).int mod colorSeq.len]
