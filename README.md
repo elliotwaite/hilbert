@@ -1,3 +1,6 @@
+Nim code for generating colorful Hilbert curve images, including Hilbert curves 
+made of Hilbert curves (`hilbert_inception.nim`).
+
 <div align="center">
 
 # hilbert_inception.nim
